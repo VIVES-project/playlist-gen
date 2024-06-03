@@ -1,4 +1,4 @@
-# Image captioning with GPT-4
+# Summer school project
 
 ## Setup
 
@@ -11,16 +11,18 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
+Then create an .env file with the follwoing API keys:
+
+```
+OPENAI_API_KEY=....
+```
+
 ## Usage
 
 ```bash
 # activate virtual environment
 source venv/Scripts/activate
 
-# run script
-python main.py
+# run script, for example the image caption demo:
+python img-caption.py
 ```
-
-## References
-
-- https://github.com/42lux/CaptainCaption

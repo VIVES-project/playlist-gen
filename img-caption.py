@@ -7,6 +7,11 @@ import numpy as np
 from PIL import Image
 from openai import OpenAI
 
+"""
+Image captioning with GPT-4
+based on: https://github.com/42lux/CaptainCaption
+"""
+
 def generate_description(api_key: str, image: str|np.ndarray, prompt:str, detail:str, max_tokens:int) -> str:
 
     format = image.split(".")[2]
@@ -43,6 +48,7 @@ def generate_description(api_key: str, image: str|np.ndarray, prompt:str, detail
             log_file.write(str(e) + '\n')
             log_file.write(traceback.format_exc() + '\n')
         return f"Error: {str(e)}"
+
 
 def scale_image(img: Image):
     max_width = 2048
