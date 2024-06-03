@@ -1,4 +1,4 @@
 Pillow==10.3.0
 numpy==1.26.4
-gradio==4.32.2
 openai==1.30.5 
+python-dotenv==1.0.1
