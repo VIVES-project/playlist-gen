@@ -96,3 +96,46 @@ def create_playlist(user_id=sp.current_user()['id'], playlist_name=playlist_name
 
 # SAMPLE [MAIN]
 create_playlist()
+
+
+
+
+
+# # WORST CASE SCENARIO (Draft: Asking ChatGPT to generate a song list)
+# ## The Worst Case Scenario
+# Insert before if __name__ ...
+# def generate_list(api_key: str, prompt:str, detail:str, max_tokens:int) -> str:
+#     try:
+#         client = OpenAI(api_key=api_key)
+#         payload = {
+#             "model": "gpt-4-turbo",
+#             "messages": [{
+#                 "role": "user",
+#                 "content": [
+#                     {"type": "text", "text": prompt},
+#                 ]
+#             }],
+#             "max_tokens": max_tokens
+#         }
+
+#         response = client.chat.completions.create(**payload)
+#         # Split comma separated value string
+#         songList = response.choices[0].message.content.split(',')
+#         return songList
+
+#     except Exception as e:
+#         with open("error_log.txt", 'a') as log_file:
+#             log_file.write(str(e) + '\n')
+#             log_file.write(traceback.format_exc() + '\n')
+#         return f"Error: {str(e)}"
+# ##
+
+    # INSERT after 'print(description)'
+    # # # TEST / EXPERIMENT
+    # # Get a list of songs based on the description
+    # prompt_list = """
+    #     !!!From the previous answer!!!, give me a list of songs in a string of comma separated values
+    # """
+    # songList = generate_list(api_key, prompt)
+
+    # print(songList)
