@@ -36,6 +36,8 @@ user_id = sp.current_user()['id']
 playlist_name = 'Cool & Edgy Playlist'
 playlist_description = 'A playlist that captures the cool and edgy vibe of metal and punk rock music.'
 playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True, description=playlist_description)
+playlist_url = playlist["id"]
+playlist_url_complete = f'https://open.spotify.com/playlist/{playlist_url}'
 
 # List of song names (you can customize this list)
 song_names = [
@@ -73,4 +75,4 @@ if track_ids:
 else:
     print("No tracks found for the provided song names.")
 
-print(f'Playlist "{playlist_name}" created successfully!')
+print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
