@@ -70,10 +70,10 @@ if __name__ == "__main__":
     if api_key is None:
         raise KeyError("OPENAI_API_KEY")
 
-    image = "./img/death.jpeg"
+    image = "./img/test2.png"
     prompt = """
         The image contains a person. Describe their outfit and the vibe they give off, then suggest two music genres they are most likely to enjoy. 
-        Limit it to exactly two. Answer in JSON with the following format: {"description": "...", "top_music_genre": ["genre1", "genre2", "..."]}'
+        Limit it to exactly two. Answer in JSON with the following format: {"description": "...", "top_music_genre": ["genre1", "genre2", "..."], "top_tags"=["..."]}', where top_tags can only have values from this set: ["violence", "dating", "obscene", "danceability"]. Provide at least 2 tags
     """
     #prompt = "What is in this image?"
 

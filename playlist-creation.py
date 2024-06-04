@@ -1,5 +1,9 @@
+import os
+from dotenv import load_dotenv
 import requests
 import base64
+
+load_dotenv()
 
 # Define your access token and user ID
 # access_token = 'YOUR_ACCESS_TOKEN'
@@ -31,8 +35,12 @@ def get_token(spotify_client_id, spotify_client_secret):
         raise Exception(f"Failed to get access token: {response.status_code} {response.text}")
 
 # Example usage
-spotify_client_id = 'df6017b470b049f593c9b7f1b306d4ba'
-spotify_client_secret = 'c6d29a92c7da46a3b5212e58a6e5fd63'
+spotify_client_id = os.getenv("SPOTIFY_CLIENT_ID")
+spotify_client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
+
+if (spotify_client_id is None) or (spotify_client_secret is None):
+    raise KeyError("OPENAI_API_KEY")
+
 access_token = get_token(spotify_client_id, spotify_client_secret)
 print(access_token)
 #
