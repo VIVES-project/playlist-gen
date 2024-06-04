@@ -82,6 +82,7 @@ def create_playlist(user_id=sp.current_user()['id'], playlist_name=playlist_name
 
     # Search for tracks and add them to the playlist
     track_ids = []
+    # ! TODO - "try" to place the exact song into the generated tracklist
     for song in recommended_tracks:
         result = sp.search(q=song, type='track', limit=1)
         if result['tracks']['items']:
