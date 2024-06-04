@@ -13,9 +13,6 @@ Image captioning with GPT-4
 based on: https://github.com/42lux/CaptainCaption
 """
 
-def generate_description_mock(api_key: str, image: str|np.ndarray, prompt:str, detail:str, max_tokens:int) -> str:
-    return '{"description": "The person in the image is wearing a black hoodie featuring a white graphic print that appears to be in a style commonly associated with metal or hard rock bands. They are giving off a relaxed yet confident vibe, emphasized by their casual pose and the subtle, self-assured expression on their face.", "top_music_genre": ["Metal", "Rock"]}'
-
 def generate_description(api_key: str, image: str|np.ndarray, prompt:str, detail:str, max_tokens:int) -> str:
 
     format = image.split(".")[2]
@@ -78,11 +75,11 @@ if __name__ == "__main__":
         The image contains a person. Describe their outfit and the vibe they give off, then suggest two music genres they are most likely to enjoy. 
         Limit it to exactly two. Answer in JSON with the following format: {"description": "...", "top_music_genre": ["genre1", "genre2", "..."]}'
     """
+    #prompt = "What is in this image?"
 
     detail = "low"
     max_tokens = 300
 
     description = generate_description(api_key, image, prompt, detail, max_tokens)
-    # description = json.loads(generate_description_mock(api_key, image, prompt, detail, max_tokens))
 
     print(description)
