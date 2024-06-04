@@ -4,7 +4,7 @@
 
 ```bash
 # clone repo
-git clone TODO-INSERT-URL
+git clone https://github.com/linomp/playlist-gen
 
 # create virtual environment & install requirements
 python -m venv venv
