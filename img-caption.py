@@ -8,6 +8,8 @@ import numpy as np
 from PIL import Image
 from openai import OpenAI
 
+from models import ImageCaption
+
 """
 Image captioning with GPT-4
 based on: https://github.com/42lux/CaptainCaption
@@ -61,8 +63,8 @@ def scale_image(img: Image):
     return img
 
 
-if __name__ == "__main__":
 
+def run_demo() -> ImageCaption:
     load_dotenv()
 
     api_key = os.getenv("OPENAI_API_KEY")
@@ -73,9 +75,8 @@ if __name__ == "__main__":
     image = "./img/test2.png"
     prompt = """
         The image contains a person. Describe their outfit and the vibe they give off, then suggest two music genres they are most likely to enjoy. 
-        Limit it to exactly two. Answer in JSON with the following format: {'person_age':? ,'description': '', 'top_music_genre': ['genre1', 'genre2', '...'], 'top_tags'=['...']}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
+        Limit it to exactly two. Answer in JSON with the following format: {'description': '', 'top_music_genres': ['genre1', 'genre2', '...'], 'top_tags'=['...']}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
     """
-    #prompt = "What is in this image?"
 
     detail = "low"
     max_tokens = 300
@@ -83,3 +84,10 @@ if __name__ == "__main__":
     description = generate_description(api_key, image, prompt, detail, max_tokens)
 
     print(description)
+
+    dict = eval(description)
+
+    return ImageCaption(**dict)
+
+if __name__ == "__main__":
+    run_demo()

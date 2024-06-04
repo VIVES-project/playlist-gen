@@ -3,3 +3,4 @@ venv/
 __pycache__
 error_log.txt
 .cache
+*.csv
