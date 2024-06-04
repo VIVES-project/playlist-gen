@@ -16,6 +16,10 @@ if (spotify_client_id is None) or (spotify_client_secret is None):
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=spotify_client_id,
                                                            client_secret=spotify_client_secret))
 
+# results = sp.search(q='weezer', limit=20)
+# for idx, track in enumerate(results['tracks']['items']):
+#     print(idx, track['name'])
+
 # Your Spotify API credentials
 client_id = spotify_client_id
 client_secret = spotify_client_secret
@@ -27,14 +31,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
                                                redirect_uri=redirect_uri,
                                                scope="playlist-modify-public"))
 
-# Create a new playlist
-user_id = sp.current_user()['id']
-# playlist_name = 'Cool & Edgy Playlist'
-# playlist_description = 'A playlist that captures the cool and edgy vibe of metal and punk rock music.'
-# playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True, description=playlist_description)
-# playlist_url = playlist["id"]
-# playlist_url_complete = f'https://open.spotify.com/playlist/{playlist_url}'
-
+# RECOMMEND TRACKS. Takes a song list and outputs a recommendation list based on inputted songs
 # Input the track_list. The input_track limit is set to 5 by default
 def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
     # # SEARCH
@@ -63,20 +60,39 @@ def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
 
     return name_list
 
-# # Search for tracks and add them to the playlist
-# track_ids = []
-# for song in song_names:
-#     result = sp.search(q=song, type='track', limit=1)
-#     if result['tracks']['items']:
-#         track_ids.append(result['tracks']['items'][0]['id'])
+# PLAYLIST CREATION
+playlist_name = "Sample Playlist"
+playlist_description = "Sample Description"
+def create_playlist(user_id=sp.current_user()['id'], playlist_name=playlist_name, playlist_description=playlist_description):
+    
+    # PLAYLIST INITIALIZATION
+    # user_id = sp.current_user()['id']
+    playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True, description=playlist_description)
+    playlist_url = playlist["id"]
+    playlist_url_complete = f'https://open.spotify.com/playlist/{playlist_url}'
 
-# if track_ids:
-#     sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=track_ids)
-# else:
-#     print("No tracks found for the provided song names.")
+    # <SONG LIST GENERATION>
+    song_track_list = [] # Use this variable as the output of the song list generation functions and as input to the recommendation generation
+    # 
+    # 
+    # SAMPLE TRACKS (FOR TESTING)
+    song_track_list = ['Toe - Boyo', 'Origami JP - Trains', 'Chon - Waterslide', 'Delta Sleep - 21 Letters', 'Tricot - Potage']
 
-# print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
+    recommended_tracks = recommend_tracks(song_track_list, limit=20)
 
-# SAMPLE
-input_tracks = ['Toe - Boyo', 'Origami JP - Trains', 'Chon - Waterslide', 'Delta Sleep - 21 Letters', 'Tricot - Potage'] # Input track list as  here
-recommended_tracks = recommend_tracks(input_tracks)
+    # Search for tracks and add them to the playlist
+    track_ids = []
+    for song in recommended_tracks:
+        result = sp.search(q=song, type='track', limit=1)
+        if result['tracks']['items']:
+            track_ids.append(result['tracks']['items'][0]['id'])
+
+    if track_ids:
+        sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=track_ids)
+    else:
+        print("No tracks found for the provided song names.")
+
+    print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
+
+# SAMPLE [MAIN]
+create_playlist()
