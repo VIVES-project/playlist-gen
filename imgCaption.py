@@ -21,8 +21,8 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_caption(image: np.ndarray, format:str, weather_desc:str) -> ImageCaption:
     first_part = f"The image contains a person and the current weather is {weather_desc}."
-    prompt = first_part + """Based on their outfit and the vibe they give off, suggest at least two music genres they are most likely to enjoy given the current weather, strictly from this set: ['blues', 'country', 'hip hop', 'jazz', 'pop', 'reggae', 'rock']. 
-    Answer in JSON with the following format (omit markdown annotations like ```json, only output valid json): {'top_music_genres': ['genre1', 'genre2', '...'], 'top_tags'=['...'], 'title_playlist':'The playlist name'}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
+    prompt = first_part + """Describe their outfit and the vibe they give off, and based on that, suggest at least two music genres they are most likely to enjoy given the current weather, strictly from this set: ['blues', 'country', 'hip hop', 'jazz', 'pop', 'reggae', 'rock']. 
+    Answer in JSON with the following format (omit markdown annotations like ```json, only output valid json): {'description': '...', 'top_music_genres': ['genre1', 'genre2', '...'], 'top_tags'=['...'], 'title_playlist':'The playlist name'}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
     """
     detail = "low"
     max_tokens = 300
