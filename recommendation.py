@@ -53,6 +53,16 @@ def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
     # # RECOMMENDATION
     recommendations = sp.recommendations(seed_artists=None, seed_genres=None, seed_tracks=search_results, limit=limit)
 
+    # Structure
+    # recommendations
+    #   'tracks'
+    #       i
+    # THIS SHOULD BE THE TRACK, but we can go further to extract album image
+    #           'album'
+    #               'images'
+    #                   0
+    #                       'url'
+
     # List of Names (Optional, For Debugging Purposes)
     name_list = [i['name'] for i in recommendations['tracks']]
     print(name_list)
@@ -60,6 +70,9 @@ def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
     # List of IDs (URLs)
     id_list = [i['id'] for i in recommendations['tracks']]
     print(id_list)
+    
+    album_list = [i['album']['images'][0]['url'] for i in recommendations['tracks']]
+    print(album_list)
 
     return name_list
 
