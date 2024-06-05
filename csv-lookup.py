@@ -2,8 +2,8 @@ import csv
 from models import ImageCaption, SongLookupResult
 import random
 
-DATA_PATH = './data/tcc_ceds_music.csv'
-# DATA_PATH = './data/small.csv'
+#DATA_PATH = './data/tcc_ceds_music.csv'
+DATA_PATH = './data/small.csv'
 
 def get_top_songs(caption: ImageCaption)->list[SongLookupResult]:
     print(f"Searching songs of the genres: {caption.top_music_genres}, with tags: {caption.top_tags}")
@@ -14,7 +14,7 @@ def get_top_songs(caption: ImageCaption)->list[SongLookupResult]:
         reader_obj = csv.DictReader(file_obj) 
         for row in reader_obj:
             if (row["genre"] in caption.top_music_genres) and (row["topic"] in caption.top_tags):
-                results.append(f"{row["artist_name"]} - {row["track_name"]}")
+                results.append(f"{row['artist_name']} - {row['track_name']}")
 
     # Return a random sample of 5 results
     return random.sample(results, min(len(results), 5))
