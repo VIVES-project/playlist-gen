@@ -14,15 +14,24 @@ from models import ImageCaption
 Image captioning with GPT-4
 based on: https://github.com/42lux/CaptainCaption
 """
+load_dotenv()
 
-def generate_description(api_key: str, image: str|np.ndarray, prompt:str, detail:str, max_tokens:int) -> str:
+api_key = os.getenv("OPENAI_API_KEY")
 
-    format = image.split(".")[2]
-    if format.upper() not in ["JPEG", "PNG"]:
-        raise AssertionError("image format not supported")
+
+def generate_caption(image: np.ndarray, format:str, weather_desc:str) -> ImageCaption:
+    first_part = f"The image contains a person and the current weather is {weather_desc}."
+    prompt = first_part + """Based on their outfit and the vibe they give off, suggest at least two music genres they are most likely to enjoy given the current weather, strictly from this set: ['blues', 'country', 'hip hop', 'jazz', 'pop', 'reggae', 'rock']. 
+    Answer in JSON with the following format (omit markdown annotations like ```json, only output valid json): {'top_music_genres': ['genre1', 'genre2', '...'], 'top_tags'=['...'], 'title_playlist':'The playlist name'}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
+    """
+    detail = "low"
+    max_tokens = 300
+
+    if api_key is None:
+        raise KeyError("OPENAI_API_KEY")
 
     try:
-        img = Image.fromarray(image) if isinstance(image, np.ndarray) else Image.open(image)
+        img = Image.fromarray(image)
         img = scale_image(img)
 
         buffered = io.BytesIO()
@@ -44,7 +53,9 @@ def generate_description(api_key: str, image: str|np.ndarray, prompt:str, detail
         }
 
         response = client.chat.completions.create(**payload)
-        return response.choices[0].message.content
+        description = response.choices[0].message.content
+
+        return ImageCaption(**eval(description))
 
     except Exception as e:
         with open("error_log.txt", 'a') as log_file:
@@ -63,31 +74,10 @@ def scale_image(img: Image):
     return img
 
 
-
-def run_demo() -> ImageCaption:
-    load_dotenv()
-
-    api_key = os.getenv("OPENAI_API_KEY")
-
-    if api_key is None:
-        raise KeyError("OPENAI_API_KEY")
-
-    image = "./img/test2.png"
-    prompt = """
-        The image contains a person. Describe their outfit and the vibe they give off, then suggest two music genres they are most likely to enjoy. 
-        Limit it to exactly two. Answer in JSON with the following format: {'description': '', 'top_music_genres': ['genre1', 'genre2', '...'], 'top_tags'=['...']}', where top_tags can only have values from this set: ["dating", "violence","world/life","night/time","shake the audience","family/gospel","romantic","communication","obscene", "family/spiritual", "sadness","feelings"]. Provide at least 3 tags
-    """
-
-    detail = "low"
-    max_tokens = 300
-
-    description = generate_description(api_key, image, prompt, detail, max_tokens)
-
-    print(description)
-
-    dict = eval(description)
-
-    return ImageCaption(**dict)
-
 if __name__ == "__main__":
-    run_demo()
+    path = "./img/death.jpeg"
+    image = Image.open(path)
+    image = np.array(image)
+
+    description = generate_caption(image=image, format="JPEG", weather_desc="sunny")
+    print(description)

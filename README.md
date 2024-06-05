@@ -31,7 +31,7 @@ SPOTIFY_CLIENT_SECRET=...
 source venv/Scripts/activate
 
 # run script, for example the image caption demo:
-python img-caption.py
+python imgCaption.py
 ```
 
 ## Start streamlit UI
