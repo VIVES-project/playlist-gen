@@ -9,3 +9,8 @@ class ImageCaption(BaseModel):
 class SongLookupResult(BaseModel):
     artist: str
     song_name: str
+
+class Song_List(BaseModel):
+    song_name_list: list
+    song_id_list: list
+    song_album_image_list: list
