@@ -4,10 +4,11 @@ import numpy as np
 
 img_file_buffer = st.camera_input("Take a picture")
 
-pressed = st.button("hi there")
+pressed = st.button("DONT PRESS THIS")
 
 if pressed:
-    st.write("presed btn!")
+    st.write("you PRESSED me!")
+
 
 if img_file_buffer is not None:
     # To read image file buffer as a PIL Image:

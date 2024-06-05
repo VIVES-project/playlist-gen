@@ -33,3 +33,12 @@ source venv/Scripts/activate
 # run script, for example the image caption demo:
 python img-caption.py
 ```
+
+## Start streamlit UI
+
+```bash
+# activate virtual environment
+source venv/Scripts/activate
+
+streamlit run st-example.py
+```
