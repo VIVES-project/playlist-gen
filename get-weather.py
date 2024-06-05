@@ -22,7 +22,7 @@ async def getweather():
             for hourly in daily.hourly_forecasts:
                 weatherLabel = hourly.kind
 
-        weatherData.append({str(latestItem.date), str(hourly.time), str(weatherLabel)})
+        weatherData = [str(latestItem.date), str(hourly.time), str(weatherLabel)]
 
         return weatherData
 
