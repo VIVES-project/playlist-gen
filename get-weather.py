@@ -11,18 +11,20 @@ async def getweather():
         # fetch a weather forecast from a city
         weather = await client.get("Brugge")
 
-        # returns the current day's forecast temperature (int)
-        # print(f"Date:{weather.datetime} \n Temp:{weather.temperature}\n")
+        weatherData = []
+        dailyData = []
 
-        # get the weather forecast for a few days
+        # get the last (current) weather, by the most recent hour they can provide
+        # from there we can access the time, kind of weather, etc.
         for daily in weather.daily_forecasts:
-            latestItem = daily
+            dailyData.append(daily)
+            latestItem = dailyData[0]
             for hourly in daily.hourly_forecasts:
                 weatherLabel = hourly.kind
 
-        print(latestItem.date)
-        print(hourly.time)
-        print(weatherLabel)
+        weatherData.append({str(latestItem.date), str(hourly.time), str(weatherLabel)})
+
+        return weatherData
 
 
 if __name__ == "__main__":
@@ -31,4 +33,8 @@ if __name__ == "__main__":
     if os.name == "nt":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-    asyncio.run(getweather())
+    weatherData = asyncio.run(getweather())
+
+    # optional: just for checking
+    for data in weatherData:
+        print(data)
