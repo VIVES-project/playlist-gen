@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
+from models import Song
 
 load_dotenv()
 
@@ -33,7 +34,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
 
 # RECOMMEND TRACKS. Takes a song list and outputs a recommendation list based on inputted songs
 # Input the track_list. The input_track limit is set to 5 by default
-def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
+def recommend_tracks(search_track_list, limit=10, input_track_limit=5)->list[Song]:
     # # SEARCH
     # name_results = []
     search_results = []
@@ -50,15 +51,19 @@ def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
     # # RECOMMENDATION
     recommendations = sp.recommendations(seed_artists=None, seed_genres=None, seed_tracks=search_results, limit=limit)
 
+    song_list = []
+    for i in recommendations['tracks']:
+        song_list.append(Song(song_name=i['name'],song_id=i['id'],song_album_image=i['album']['images'][0]['url']))
+
     # List of Names (Optional, For Debugging Purposes)
     # name_list = [i['name'] for i in recommendations['tracks']]
     # print(name_list)
 
     # List of IDs (URLs)
-    id_list = [i['id'] for i in recommendations['tracks']]
+    # id_list = [i['id'] for i in recommendations['tracks']]
     # print(id_list)
 
-    return id_list
+    return song_list
 
 # PLAYLIST CREATION
 playlist_name = "Sample Playlist"
@@ -72,6 +77,17 @@ def create_playlist(song_track_list, playlist_name, weather_date, limit=20, user
     playlist_url_complete = f'https://open.spotify.com/playlist/{playlist_url}'
 
     recommended_tracks = recommend_tracks(song_track_list, limit=limit)
+    # print(f"Track Names: {track_names}\n Track IDs: {track_ids}\n Track Album Image Links: {track_album_images}\n")
+    print(recommended_tracks)
+
+    # track_names = []
+    # track_ids = []
+    # track_album_images = []
+
+    # for song in recommended_tracks:
+    #     track_names.append(song.song_name)
+    #     track_ids.append(song.song_id)
+    #     track_album_images.append(song.song_album_image)
 
     # # Search for tracks and add them to the playlist
     # track_ids = []
@@ -82,12 +98,16 @@ def create_playlist(song_track_list, playlist_name, weather_date, limit=20, user
     #         # track_ids.append(result['tracks']['items'][0]['id'])
     #     track_ids.append(song)
 
-    if recommended_tracks:
-        sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=recommended_tracks)
-    else:
-        print("No tracks found for the provided song names.")
+    track_ids = map(lambda x: x.song_id, recommended_tracks)
+    print()
+    print(list(track_ids))
+    # # We input the ids
+    # if track_ids:
+    #     sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=list(track_ids))
+    # else:
+    #     print("No tracks found for the provided song names.")
 
-    print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
+    # print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
 
 
 # SAMPLE [MAIN]
@@ -98,7 +118,7 @@ def create_playlist(song_track_list, playlist_name, weather_date, limit=20, user
 
 if __name__ == "__main__":
     song_track_list = ['Toe - Boyo', 'Origami JP - Trains', 'Chon - Waterslide', 'Delta Sleep - 21 Letters', 'Tricot - Potage']
-    # create_playlist(song_track_list=song_track_list, playlist_name=playlist_name, weather_data=weather_data)
+    create_playlist(song_track_list=song_track_list, playlist_name="playlist_name", weather_date="weather_data")
 
 # # WORST CASE SCENARIO (Draft: Asking ChatGPT to generate a song list)
 # ## The Worst Case Scenario
