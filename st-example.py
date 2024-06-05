@@ -1,13 +1,15 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
+import pandas as pd
 
 img_file_buffer = st.camera_input("Take a picture")
 
-pressed = st.button("hi there")
+pressed = st.button("DONT PRESS THIS")
 
 if pressed:
-    st.write("presed btn!")
+    st.write("you PRESSED me!")
+
 
 if img_file_buffer is not None:
     # To read image file buffer as a PIL Image:
@@ -23,3 +25,10 @@ if img_file_buffer is not None:
     # Check the shape of img_array:
     # Should output shape: (height, width, channels)
     st.write(img_array.shape)
+
+
+st.write("Here's our first attempt at using data to create a table:")
+st.write(pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+}))
