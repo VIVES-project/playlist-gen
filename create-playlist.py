@@ -63,20 +63,13 @@ def recommend_tracks(search_track_list, limit=10, input_track_limit=5):
 # PLAYLIST CREATION
 playlist_name = "Sample Playlist"
 playlist_description = "Sample Description"
-def create_playlist(user_id=sp.current_user()['id'], playlist_name=playlist_name, playlist_description=playlist_description, limit=20):
+def create_playlist(song_track_list, playlist_name, weather_date, limit=20, user_id=sp.current_user()['id']):
     
     # PLAYLIST INITIALIZATION
     # user_id = sp.current_user()['id']
-    playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True, description=playlist_description)
+    playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True) #, description=playlist_description
     playlist_url = playlist["id"]
     playlist_url_complete = f'https://open.spotify.com/playlist/{playlist_url}'
-
-    # <SONG LIST GENERATION>
-    song_track_list = [] # Use this variable as the output of the song list generation functions and as input to the recommendation generation
-    # 
-    # 
-    # SAMPLE TRACKS (FOR TESTING)
-    song_track_list = ['Toe - Boyo', 'Origami JP - Trains', 'Chon - Waterslide', 'Delta Sleep - 21 Letters', 'Tricot - Potage']
 
     recommended_tracks = recommend_tracks(song_track_list, limit=limit)
 
@@ -96,25 +89,16 @@ def create_playlist(user_id=sp.current_user()['id'], playlist_name=playlist_name
 
     print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
 
+
 # SAMPLE [MAIN]
 
 # THE PLAYLIST TITLE DESCRIPTION PARAMETERS
 # Input the python-weather 'date' 'time' 'weather' data
 # Input the generated 'title' 'description'
-date = ""
-time = ""
-weather = ""
-title = ""
-description = " "
 
-playlist_name = f"{title}"
-playlist_description = f"{date} : {weather} : {description}"
-
-create_playlist(playlist_name=playlist_name, playlist_description=playlist_description)
-
-
-
-
+if __name__ == "__main__":
+    song_track_list = ['Toe - Boyo', 'Origami JP - Trains', 'Chon - Waterslide', 'Delta Sleep - 21 Letters', 'Tricot - Potage']
+    # create_playlist(song_track_list=song_track_list, playlist_name=playlist_name, weather_data=weather_data)
 
 # # WORST CASE SCENARIO (Draft: Asking ChatGPT to generate a song list)
 # ## The Worst Case Scenario
