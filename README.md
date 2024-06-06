@@ -4,7 +4,7 @@
 
 ```bash
 # clone repo
-git clone https://github.com/linomp/playlist-gen
+git clone https://github.com/VIVES-project/playlist-gen
 
 # create virtual environment
 python -m venv venv
