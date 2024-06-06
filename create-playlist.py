@@ -80,35 +80,17 @@ def create_playlist(song_track_list, playlist_name, weather_date, limit=20, user
     # print(f"Track Names: {track_names}\n Track IDs: {track_ids}\n Track Album Image Links: {track_album_images}\n")
     print(recommended_tracks)
 
-    # track_names = []
-    # track_ids = []
-    # track_album_images = []
-
-    # for song in recommended_tracks:
-    #     track_names.append(song.song_name)
-    #     track_ids.append(song.song_id)
-    #     track_album_images.append(song.song_album_image)
-
-    # # Search for tracks and add them to the playlist
-    # track_ids = []
-    # # ! TODO - "try" to place the exact song into the generated tracklist
-    # for song in recommended_tracks:
-    #     # result = sp.search(q=song, type='track', limit=1)
-    #     # if result['tracks']['items']:
-    #         # track_ids.append(result['tracks']['items'][0]['id'])
-    #     track_ids.append(song)
-
     track_ids = map(lambda x: x.song_id, recommended_tracks)
+    track_ids = list(track_ids)
     print()
-    print(list(track_ids))
-    # # We input the ids
-    # if track_ids:
-    #     sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=list(track_ids))
-    # else:
-    #     print("No tracks found for the provided song names.")
+    print(track_ids)
+    # We input the ids
+    if track_ids:
+        sp.user_playlist_add_tracks(user=user_id, playlist_id=playlist['id'], tracks=track_ids)
+    else:
+        print("No tracks found for the provided song names.")
 
-    # print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
-
+    print(f'Playlist "{playlist_name}" created successfully! Here is the url: {playlist_url_complete}')
 
 # SAMPLE [MAIN]
 

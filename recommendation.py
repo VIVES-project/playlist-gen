@@ -114,3 +114,21 @@ for song in recommended_tracks:
     
 # print(f"Track Names: {track_names}\n Track IDs: {track_ids}\n Track Album Image Links: {track_album_images}\n")
 print(recommended_tracks)
+
+    # track_names = []
+    # track_ids = []
+    # track_album_images = []
+
+    # for song in recommended_tracks:
+    #     track_names.append(song.song_name)
+    #     track_ids.append(song.song_id)
+    #     track_album_images.append(song.song_album_image)
+
+    # # Search for tracks and add them to the playlist
+    # track_ids = []
+    # # ! TODO - "try" to place the exact song into the generated tracklist
+    # for song in recommended_tracks:
+    #     # result = sp.search(q=song, type='track', limit=1)
+    #     # if result['tracks']['items']:
+    #         # track_ids.append(result['tracks']['items'][0]['id'])
+    #     track_ids.append(song)
