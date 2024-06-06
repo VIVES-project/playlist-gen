@@ -1,7 +1,7 @@
 import python_weather
 import asyncio
 import os
-from models import WeatherData
+from dataModels import WeatherData
 from datetime import datetime
 
 

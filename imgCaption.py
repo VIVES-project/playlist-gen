@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 from openai import OpenAI
 
-from models import ImageCaption
+from dataModels import ImageCaption
 
 """
 Image captioning with GPT-4

@@ -1,10 +1,23 @@
 import csv 
-from models import ImageCaption, SongLookupResult
+from dataModels import ImageCaption, SongLookupResult
 import random
 
 DATA_PATH = './data/dataset_new.csv'
 
-def get_top_songs(caption: ImageCaption) -> list[SongLookupResult]:
+def get_unique_genres() -> list[str]:
+    results = set([])
+    
+    with open(DATA_PATH, encoding="utf8") as file_obj: 
+        reader_obj = csv.DictReader(file_obj) 
+        for row in reader_obj:
+            try:
+                results.add(row["track_genre"])
+            except:
+                print("problem with row:", row)
+                
+    return results
+
+def get_top_songs(caption: ImageCaption) -> list[str]:
     print(f"Searching songs of the genres: {caption.top_music_genres}, with tempo >= {caption.music_tempo} and energy >= {caption.music_energy}")
 
     results = []
