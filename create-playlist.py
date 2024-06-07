@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
         st.write("Preparing your playlist...")
 
-        caption = generate_caption(img_array, format="PNG", weather_desc="sunny")
+        caption = generate_caption(img_array, format="PNG", weather_desc=weather_data.kind)
 
         st.header("Description")
         st.write(caption)
