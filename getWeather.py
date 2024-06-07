@@ -32,14 +32,26 @@ async def getweather():
                 hourlyKind.append(hourly.kind)
                 hourlyTemp.append(hourly.temperature)
 
+        # # recent date
+        # WeatherData.date = latestItem.date
+        # # recent time by hour
+        # WeatherData.time = f"{current_time:2}:00:00"
+        # # recent kind by hour
+        # WeatherData.kind = hourlyKind[index]
+        # # recent temp by hour
+        # WeatherData.temp = hourlyTemp[index]
+
         # recent date
-        WeatherData.date = latestItem.date
+        date = str(latestItem.date)
         # recent time by hour
-        WeatherData.time = f"{current_time:2}:00:00"
+        time = f"{current_time:2}:00:00"
         # recent kind by hour
-        WeatherData.kind = hourlyKind[index]
+        kind = str(hourlyKind[index])
         # recent temp by hour
-        WeatherData.temp = hourlyTemp[index]
+        temp = str(hourlyTemp[index])
+
+        weatherData = WeatherData(date=date, time=time, kind=kind, temp=temp)
+        return weatherData
 
 
 def find_closest_digit(number):
@@ -70,8 +82,8 @@ if __name__ == "__main__":
 
     asyncio.run(getweather())
 
-    # optional: just for checking
-    print(WeatherData.date)
-    print(WeatherData.time)
-    print(WeatherData.kind)
-    print(WeatherData.temp)
+    # # optional: just for checking
+    # print(WeatherData.date)
+    # print(WeatherData.time)
+    # print(WeatherData.kind)
+    # print(WeatherData.temp)
