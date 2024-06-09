@@ -1,5 +1,5 @@
 import csv 
-from dataModels import ImageCaption, SongLookupResult
+from dataModels import ImageCaption
 import random
 
 DATA_PATH = './data/dataset_new.csv'
