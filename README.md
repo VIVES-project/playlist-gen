@@ -16,13 +16,27 @@ source venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
-Then create an .env file with the follwoing API keys:
+Then create an .env file with the following API keys:
 
 ```
 OPENAI_API_KEY=....
 SPOTIFY_CLIENT_ID=...
 SPOTIFY_CLIENT_SECRET=...
 ```
+
+If you're part of the VIVES project team, you can download the `.env` file directly from our shared google drive folder and paste it in the project's root directory. It should be ignored by git (always double check that)!
+<details>
+<summary>
+  (optional) Create your own API key and client secrets.
+</summary>
+
+Check [this tutorial](https://platform.openai.com/docs/quickstart) for setting up your OpenAI API key, and [this one](https://developer.spotify.com/documentation/web-api/tutorials/getting-started) for the spotify client id and client secret.
+
+**Important**: you will also need to add specific user accounts to this list, to be able to interact with the app in development mode:
+
+<img src="https://github.com/VIVES-project/playlist-gen/assets/40581019/da83fc79-2958-49c8-8815-62f584f55595" width="70%"/>
+
+</details>
 
 ## Usage
 
@@ -34,7 +48,7 @@ source venv/Scripts/activate
 python imgCaption.py
 ```
 
-## Start streamlit UI
+### Start streamlit UI
 
 ```bash
 # activate virtual environment
