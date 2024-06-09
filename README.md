@@ -24,7 +24,7 @@ SPOTIFY_CLIENT_ID=...
 SPOTIFY_CLIENT_SECRET=...
 ```
 
-If you're part of the VIVES project team, you can download the `.env` file directly from our shared google drive folder and paste it in the project's root directory. It should be ignored by git (always double check that)!
+If you're part of the VIVES project team, you can download the `.env` file directly from our shared google drive folder and paste it in the project's root directory. It should be called exactly `.env` (double check that the . wasn't removed after download), and it should be ignored by git (as specified in the .gitignore file).
 <details>
 <summary>
   (optional) Create your own API key and client secrets.
