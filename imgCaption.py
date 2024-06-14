@@ -56,7 +56,6 @@ def generate_caption(image: np.ndarray, format:str, weather_desc:str) -> ImageCa
 
         response = client.chat.completions.create(**payload)
         description = response.choices[0].message.content
-        print(description)
         return ImageCaption(**eval(description))
 
     except Exception as e:
@@ -82,3 +81,4 @@ if __name__ == "__main__":
     image = np.array(image)
 
     description = generate_caption(image=image, format="JPEG", weather_desc="sunny")
+    print(description)
