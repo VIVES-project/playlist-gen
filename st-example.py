@@ -20,6 +20,10 @@ if img_file_buffer is not None:
 
     st.header(caption.title_playlist)
     st.write(caption.description)
+
+    st.subheader("Genres:")
+    st.write(caption.top_music_genres)
+    
     st.metric("Tempo", caption.music_tempo)
     st.metric("Energy", caption.music_energy)
 
