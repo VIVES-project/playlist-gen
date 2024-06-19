@@ -18,21 +18,25 @@ if img_file_buffer is not None:
 
     caption = generate_caption(img_array, format="PNG", weather_desc="cloudy")
 
-    st.header(caption.title_playlist)
-    st.write(caption.description)
+    if caption is None:
+        st.error("An error ocurred, check logs!")
+        
+    else:
+        st.header(caption.title_playlist)
+        st.write(caption.description)
 
-    st.subheader("Genres:")
-    st.write(caption.top_music_genres)
-    
-    st.metric("Tempo", caption.music_tempo)
-    st.metric("Energy", caption.music_energy)
+        st.subheader("Genres:")
+        st.write(caption.top_music_genres)
+        
+        st.metric("Tempo", caption.music_tempo)
+        st.metric("Energy", caption.music_energy)
 
-    csv_songs = get_top_songs(caption)
+        csv_songs = get_top_songs(caption)
 
-    playlist_link, playlist_songs = create_playlist(
-        song_track_list=csv_songs, 
-        playlist_name=caption.title_playlist, 
-        weather_data=WeatherData(date="09.06.2024", time="18:00", kind="cloudy", temp="25°C")
-    )
+        playlist_link, playlist_songs = create_playlist(
+            song_track_list=csv_songs, 
+            playlist_name=caption.title_playlist, 
+            weather_data=WeatherData(date="09.06.2024", time="18:00", kind="cloudy", temp="25°C")
+        )
 
-    st.subheader(playlist_link)
+        st.subheader(playlist_link)

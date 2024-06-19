@@ -4,8 +4,8 @@ class ImageCaption(BaseModel):
     description: str
     top_music_genres: list[str]
     title_playlist: str
-    music_energy: str
-    music_tempo: str
+    music_energy: float
+    music_tempo: float
 
 class Song(BaseModel):
     song_name: str
